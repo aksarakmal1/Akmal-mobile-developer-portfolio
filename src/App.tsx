@@ -1,4 +1,4 @@
-/*import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -52,63 +52,6 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/project/fittrack" element={<FitTrack />} />
-          </Routes>
-        </div>
-      </Router>
-    </ThemeProvider>
-  );
-}
-
-export default App;*/
-
-import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext';
-
-import HomePage from './pages/HomePage';
-import FitTrack from './pages/projects/FitTrack';
-
-function App() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollPosition(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
-
-  return (
-    <ThemeProvider>
-      <Router>
-        <div className="min-h-screen flex flex-col text-gray-900 dark:text-gray-100 relative">
-          <Routes>
-            {/* root/home */}
-            <Route
-              path="/"
-              element={
-                <HomePage
-                  scrollPosition={scrollPosition}
-                  toggleMobileMenu={toggleMobileMenu}
-                  mobileMenuOpen={mobileMenuOpen}
-                />
-              }
-            />
-            {/* project detail */}
-            <Route path="/project/fittrack" element={<FitTrack />} />
-            {/* catch-all: any other "#/…" goes to HomePage */}
-            <Route
-              path="*"
-              element={
-                <HomePage
-                  scrollPosition={scrollPosition}
-                  toggleMobileMenu={toggleMobileMenu}
-                  mobileMenuOpen={mobileMenuOpen}
-                />
-              }
-            />
           </Routes>
         </div>
       </Router>

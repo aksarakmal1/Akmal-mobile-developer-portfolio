@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+/*import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
@@ -58,4 +58,4 @@ const HomePage: React.FC<HomePageProps> = ({
   );
 };
 
-export default HomePage;
+export default HomePage;*/
