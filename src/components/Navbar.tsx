@@ -128,17 +128,16 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
     const handleScroll = () => {
       const sections = ['home', 'projects', 'skills', 'experience', 'testimonials', 'contact'];
       for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
+        const el = document.getElementById(section);
+        if (el) {
+          const { top, bottom } = el.getBoundingClientRect();
+          if (top <= 100 && bottom >= 100) {
             setActiveSection(section);
             break;
           }
         }
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -165,6 +164,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
             Alex Chen
           </a>
 
+          {/* Desktop Links */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="flex items-center space-x-6">
               {['Home', 'Projects', 'Skills', 'Experience', 'Contact'].map((item) => (
@@ -182,31 +182,21 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
               ))}
             </div>
 
+            {/* Social & Theme */}
             <div className="flex items-center space-x-4">
-              <a
-                href="https://github.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                <Github size={20} />
-              </a>
-              <a
-                href="https://linkedin.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="https://twitter.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-              >
-                <Twitter size={20} />
-              </a>
+              {[{ Icon: Github, url: 'https://github.com/' },
+                { Icon: Linkedin, url: 'https://linkedin.com/' },
+                { Icon: Twitter, url: 'https://twitter.com/' }].map(({ Icon, url }) => (
+                <a
+                  key={url}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
 
               <button
                 onClick={toggleTheme}
@@ -218,6 +208,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
             </div>
           </div>
 
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-gray-700 dark:text-gray-300"
             onClick={toggleMobileMenu}
@@ -232,3 +223,4 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
 };
 
 export default Navbar;
+
