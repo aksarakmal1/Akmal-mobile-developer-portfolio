@@ -14,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'projects', 'skills', 'experience', 'testimonials', 'contact'];
+      const sections = ['#home', '#projects', '#skills', '#experience', '#testimonials', '#contact'];
       
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -51,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
             href="#home" 
             className="text-2xl font-display font-bold text-primary-600 dark:text-primary-400"
           >
-            Alex Chen
+            Akmal Hameed
           </a>
           
           <div className="hidden md:flex items-center space-x-8">
