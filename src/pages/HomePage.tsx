@@ -1,4 +1,3 @@
-// src/pages/HomePage.tsx
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -18,6 +17,8 @@ interface HomePageProps {
   mobileMenuOpen: boolean;
 }
 
+const SECTIONS = ['home', 'projects', 'skills', 'experience', 'testimonials', 'contact'];
+
 const HomePage: React.FC<HomePageProps> = ({
   scrollPosition,
   toggleMobileMenu,
@@ -25,14 +26,15 @@ const HomePage: React.FC<HomePageProps> = ({
 }) => {
   const { hash } = useLocation();
 
-  // On mount or when hash changes, scroll to the right section
+  // whenever the hash changes to "#/section", scroll there
   useEffect(() => {
-    // we expect hash like "#/projects" or "#/skills"
     if (hash.startsWith('#/')) {
       const section = hash.slice(2);
-      const el = document.getElementById(section);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+      if (SECTIONS.includes(section)) {
+        const el = document.getElementById(section);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
   }, [hash]);
@@ -43,24 +45,12 @@ const HomePage: React.FC<HomePageProps> = ({
       <MobileMenu isOpen={mobileMenuOpen} toggle={toggleMobileMenu} />
 
       <main className="flex-grow">
-        <section id="home">
-          <Hero />
-        </section>
-        <section id="projects">
-          <Projects />
-        </section>
-        <section id="skills">
-          <Skills />
-        </section>
-        <section id="experience">
-          <Experience />
-        </section>
-        <section id="testimonials">
-          <Testimonials />
-        </section>
-        <section id="contact">
-          <Contact />
-        </section>
+        <section id="home"><Hero /></section>
+        <section id="projects"><Projects /></section>
+        <section id="skills"><Skills /></section>
+        <section id="experience"><Experience /></section>
+        <section id="testimonials"><Testimonials /></section>
+        <section id="contact"><Contact /></section>
       </main>
 
       <Footer />

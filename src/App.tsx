@@ -61,7 +61,6 @@ function App() {
 
 export default App;*/
 
-// src/App.tsx
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
@@ -86,6 +85,7 @@ function App() {
       <Router>
         <div className="min-h-screen flex flex-col text-gray-900 dark:text-gray-100 relative">
           <Routes>
+            {/* root/home */}
             <Route
               path="/"
               element={
@@ -96,8 +96,9 @@ function App() {
                 />
               }
             />
+            {/* project detail */}
             <Route path="/project/fittrack" element={<FitTrack />} />
-            {/* Fallback: any other hash (e.g. "#/projects") goes to HomePage */}
+            {/* catch-all: any other "#/…" goes to HomePage */}
             <Route
               path="*"
               element={
@@ -116,4 +117,3 @@ function App() {
 }
 
 export default App;
-
