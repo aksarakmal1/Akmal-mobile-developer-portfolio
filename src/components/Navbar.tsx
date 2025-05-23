@@ -124,8 +124,10 @@ interface NavbarProps {
 const NAV_ITEMS = ['home', 'projects', 'skills', 'experience', 'contact'];
 
 const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => {
+  // Make sure to call the hook as a function:
   const { theme, toggleTheme } = useTheme();
-  const [activeSection, setActiveSection] = useState('home');
+
+  const [activeSection, setActiveSection] = useState<string>('home');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -146,17 +148,6 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
 
   const isScrolled = scrollPosition > 20;
 
-  const onNavClick = (section: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    const el = document.getElementById(section);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-      // update the hash without triggering HashRouter navigation
-      window.history.replaceState(null, '', `#${section}`);
-    }
-    toggleMobileMenu(); // if you want to auto-close mobile menu
-  };
-
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -171,20 +162,19 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
       <div className="container mx-auto px-6 py-4">
         <nav className="flex items-center justify-between">
           <a
-            href="#home"
-            onClick={(e) => onNavClick('home', e)}
+            href="#/home"
             className="text-2xl font-display font-bold text-primary-600 dark:text-primary-400"
           >
             Alex Chen
           </a>
 
+          {/* Desktop nav links */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="flex items-center space-x-6">
               {NAV_ITEMS.map((item) => (
                 <a
                   key={item}
-                  href={`#${item}`}
-                  onClick={(e) => onNavClick(item, e)}
+                  href={`#/${item}`}
                   className={`font-medium transition-colors duration-300 hover:text-primary-600 dark:hover:text-primary-400 ${
                     activeSection === item
                       ? 'text-primary-600 dark:text-primary-400'
@@ -196,11 +186,13 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
               ))}
             </div>
 
-            {/* Social icons & theme toggle */}
+            {/* Social icons */}
             <div className="flex items-center space-x-4">
-              {[{ Icon: Github, url: 'https://github.com/' },
+              {[
+                { Icon: Github, url: 'https://github.com/' },
                 { Icon: Linkedin, url: 'https://linkedin.com/' },
-                { Icon: Twitter, url: 'https://twitter.com/' }].map(({ Icon, url }) => (
+                { Icon: Twitter, url: 'https://twitter.com/' },
+              ].map(({ Icon, url }) => (
                 <a
                   key={url}
                   href={url}
@@ -211,6 +203,8 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
                   <Icon size={20} />
                 </a>
               ))}
+
+              {/* Theme toggle uses both theme & toggleTheme */}
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -236,4 +230,5 @@ const Navbar: React.FC<NavbarProps> = ({ scrollPosition, toggleMobileMenu }) => 
 };
 
 export default Navbar;
+
 

@@ -61,60 +61,13 @@ function App() {
 
 export default App;*/
 
+// src/App.tsx
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 
-import Navbar from './components/Navbar';
-import MobileMenu from './components/MobileMenu';
-import Footer from './components/Footer';
-
-import Hero from './components/Hero';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Testimonials from './components/Testimonials';
-import Contact from './components/Contact';
-
+import HomePage from './pages/HomePage';
 import FitTrack from './pages/projects/FitTrack';
-
-const HomePage = ({
-  scrollPosition,
-  toggleMobileMenu,
-  mobileMenuOpen,
-}: {
-  scrollPosition: number;
-  toggleMobileMenu: () => void;
-  mobileMenuOpen: boolean;
-}) => (
-  <>
-    <Navbar scrollPosition={scrollPosition} toggleMobileMenu={toggleMobileMenu} />
-    <MobileMenu isOpen={mobileMenuOpen} toggle={toggleMobileMenu} />
-
-    <main className="flex-grow">
-      <section id="home">
-        <Hero />
-      </section>
-      <section id="projects">
-        <Projects />
-      </section>
-      <section id="skills">
-        <Skills />
-      </section>
-      <section id="experience">
-        <Experience />
-      </section>
-      <section id="testimonials">
-        <Testimonials />
-      </section>
-      <section id="contact">
-        <Contact />
-      </section>
-    </main>
-
-    <Footer />
-  </>
-);
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -144,6 +97,17 @@ function App() {
               }
             />
             <Route path="/project/fittrack" element={<FitTrack />} />
+            {/* Fallback: any other hash (e.g. "#/projects") goes to HomePage */}
+            <Route
+              path="*"
+              element={
+                <HomePage
+                  scrollPosition={scrollPosition}
+                  toggleMobileMenu={toggleMobileMenu}
+                  mobileMenuOpen={mobileMenuOpen}
+                />
+              }
+            />
           </Routes>
         </div>
       </Router>
@@ -152,3 +116,4 @@ function App() {
 }
 
 export default App;
+
